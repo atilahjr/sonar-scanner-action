@@ -1,12 +1,21 @@
 name: 'build-test'
 on:
-  push:
+  push: 
+    branches:
+      - workflow/**  
+      - feat/**  
+
   pull_request:
+    types:
+      - closed
+    branches:
+      - release
 
 jobs:
   build:
     runs-on: ubuntu-latest
     container: philipssoftware/sonar-scanner:4.7.0.2747
+
 
     steps:
       - uses: actions/checkout@v3
