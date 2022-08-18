@@ -62,6 +62,10 @@ inputs:
     description: Organization in case of using sonarcloud
     required: false
 
+  extraArgs:
+    description: Sonarscanner extra arguments
+    required: false
+
 outputs:
   sonarParameters:
     description: Sonar parameters generate based on input.
