@@ -31,6 +31,7 @@ export const sonarScanner = async () => {
     required: false,
   });
   const organization = core.getInput('organization', { required: false });
+  const extraArgs = core.getInput('extraArgs', { required: false });
 
   const sonarParameters: string[] = [
     `-Dsonar.login=${token}`,
@@ -41,7 +42,10 @@ export const sonarScanner = async () => {
     `-Dsonar.sourceEncoding=${sourceEncoding}`,
     `-Dsonar.qualitygate.wait=${runQualityGate}`,
   ];
-
+  
+  if (extraArgs && extraArgs.length > 0) {
+    sonarParameters.push(`${extraArgs}`);
+  }
   if (baseDir && baseDir.length > 0) {
     sonarParameters.push(`-Dsonar.projectBaseDir=${baseDir}`);
   }
@@ -72,6 +76,7 @@ export const sonarScanner = async () => {
     runQualityGate              : ${runQualityGate}
     qualityGateTimeout          : ${qualityGateTimeout}
     organization                : ${organization}
+    extraArgs			: ${extraArgs}
   `);
 
   if (!isCommunityEdition) {
